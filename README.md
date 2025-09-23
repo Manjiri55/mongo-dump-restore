@@ -67,6 +67,7 @@ restore_path = /path/to/backup/folder
 - dump_path is where dumps will be stored.
 - restore_path is where data will be restored from.
 
+```
 ---
 
 ## Populate Test Databases:
@@ -119,7 +120,8 @@ config.cfg : Path to the configuration file.
 --oplog : Add --oplog for consistent backup (only valid with --all).
 
 --oplogReplay : Replay oplog during restore.
--------------------------------------------------------------------------
+
+------------------------------------------------
 
 -> Examples:
    General Dump/Restore (Standalone or Replica Set). 
@@ -202,6 +204,7 @@ For single DBs or collections in replica sets, omit oplog options.
 
 Why?
 The oplog ensures cluster-wide consistency across all databases and collections. MongoDB does not allow using it for partial dumps.
+
 -----------------------------------------
 
 # Automation Testing
