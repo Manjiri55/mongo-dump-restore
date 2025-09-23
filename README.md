@@ -1,10 +1,14 @@
 
 # MongoDB Dump & Restore Utility
 
-This project provides Python scripts to backup (dump) and restore MongoDB databases and collections using the official mongodump and mongorestore tools.
-It supports both standalone MongoDB instances and replica sets (with optional oplog support for consistent cluster-wide backups).
+This project provides Python scripts to backup (dump) and restore MongoDB databases and collections using the official **mongodump** and **mongorestore** tools.  
+It supports both **standalone MongoDB instances** and **replica sets** (with optional oplog support for consistent cluster-wide backups).
 
-# Project Structure
+---
+
+## Project Structure
+
+
 ```
 project/
 ├── dump_restore_standalone.py # Dump/restore script for standalone MongoDb instance
