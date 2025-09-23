@@ -67,6 +67,7 @@ restore_path = /path/to/backup/folder
 - dump_path is where dumps will be stored.
 - restore_path is where data will be restored from.
 
+---
 
 ## Populate Test Databases:
 
