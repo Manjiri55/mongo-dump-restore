@@ -132,51 +132,60 @@ config.cfg : Path to the configuration file.
    Run the script with one of the following options.
 
 1 Dump all databases  
+```
   python dump_restore.py config.cfg --dump --all
-
+```
 2 Dump a single database  
+```
   python dump_restore.py config.cfg --dump --db testdb1
-
+```
 3 Dump specific collections from a database  
+```
   python dump_restore.py config.cfg --dump --db testdb2:employees,projects
-
+```
 4 Restore all databases from dump  
+```
   python dump_restore.py config.cfg --restore --all
-
+```
 5 Restore a single database
+```
   python dump_restore.py config.cfg --restore --db testdb1
-
+```
 6 Restore specific collections from a database
+```
   python dump_restore.py config.cfg --restore --db testdb2:employees,projects
-
+```
  --More Examples
 
 1 Dump/restore two databases:
+```
   python dump_restore.py config.cfg --dump --db testdb1 --db testdb2
   python dump_restore.py config.cfg --restore --db testdb1 --db testdb2
-
+```
 
 2 Dump/restore a database and a specific collection:
+```  
   python dump_restore.py config.cfg --dump --db testdb1 --db testdb2:employees
   python dump_restore.py config.cfg --restore --db testdb1 --db testdb2:employees
-
+```
 
 3 Dump/restore for a multi-DB / multi-collection
+```  
   python dump_restore.py config.cfg --dump --db testdb2:employees,projects --db testdb1:products
   python dump_restore.py config.cfg --restore --db testdb2:employees,projects --db testdb1:products
-  
+```  
 
 -> Oplog-Supported Dump/Restore (Replica Set Only)
 
     1 Dump all databases with oplog
-
+```
       python dump_restore_replicaset.py config.cfg --dump --all --oplog
-
+```
 
     2 Restore all with oplog replay
-
+```
       python dump_restore_replicaset.py config.cfg --restore --all --oplogReplay
-
+```
 
 
 --oplog and --oplogReplay are only valid for replica sets, and only when dumping/restoring all databases (--all).
@@ -191,12 +200,12 @@ For single DBs or collections in replica sets, omit oplog options.
 
 ## Notes
 
-1 Ensure MongoDB user has read/write access to the databases being dumped/restored.
-2 When using --restore, the script adds --drop so existing data will be replaced.
-3 If neither --dump nor --restore is specified, the script does nothing.
-4 Use --all OR --db, but not both.
-5 Always verify dump_path and restore_path in config.cfg before running.
-6 The --oplog option is only supported for full cluster dumps (--all).It is not supported for single databases or single collections.
+1 Ensure MongoDB user has read/write access to the databases being dumped/restored.  
+2 When using --restore, the script adds --drop so existing data will be replaced.  
+3 If neither --dump nor --restore is specified, the script does nothing.  
+4 Use --all OR --db, but not both.  
+5 Always verify dump_path and restore_path in config.cfg before running.  
+6 The --oplog option is only supported for full cluster dumps (--all).It is not supported for single databases or single collections.  
 
 | Dump Target             | Oplog Allowed? |
 | ----------------------- | -------------- |
