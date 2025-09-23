@@ -131,16 +131,16 @@ config.cfg : Path to the configuration file.
    Replace the generic name dump_restore.py used in the below examples with dump_restore_standalone.py or dump_restore_replicaset.py as needed.
    Run the script with one of the following options.
 
-1 Dump all databases
+1 Dump all databases  
   python dump_restore.py config.cfg --dump --all
 
-2 Dump a single database
+2 Dump a single database  
   python dump_restore.py config.cfg --dump --db testdb1
 
-3 Dump specific collections from a database
+3 Dump specific collections from a database  
   python dump_restore.py config.cfg --dump --db testdb2:employees,projects
 
-4 Restore all databases from dump
+4 Restore all databases from dump  
   python dump_restore.py config.cfg --restore --all
 
 5 Restore a single database
