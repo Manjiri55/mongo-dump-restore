@@ -63,12 +63,11 @@ auth_db = admin
 dump_path = /path/to/backup/folder
 restore_path = /path/to/backup/folder
 
-
 - auth_db defaults to admin if not provided.
 - dump_path is where dumps will be stored.
 - restore_path is where data will be restored from.
 
----
+
 ## Populate Test Databases:
 
 Before testing the dump/restore script, you can populate MongoDB with sample data using the provided populateMultipleDbs script.
