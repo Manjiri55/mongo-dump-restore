@@ -178,11 +178,13 @@ config.cfg : Path to the configuration file.
 -> Oplog-Supported Dump/Restore (Replica Set Only)
 
     1 Dump all databases with oplog
+    
 ```
       python dump_restore_replicaset.py config.cfg --dump --all --oplog
 ```
 
     2 Restore all with oplog replay
+    
 ```
       python dump_restore_replicaset.py config.cfg --restore --all --oplogReplay
 ```
