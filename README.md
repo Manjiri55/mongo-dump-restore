@@ -1,5 +1,5 @@
 
-# MongoDB Dump & Restore Utility
+## MongoDB Dump & Restore Utility
 
 This project provides Python scripts to backup (dump) and restore MongoDB databases and collections using the official **mongodump** and **mongorestore** tools.  
 It supports both **standalone MongoDB instances** and **replica sets** (with optional oplog support for consistent cluster-wide backups).
@@ -97,7 +97,7 @@ The script will create 3 test databases with collections and sample documents:
 
 ----------------------------
 
-# Usage
+## Usage
 
 Dump & Restore Script
 
@@ -186,7 +186,7 @@ For single DBs or collections in replica sets, omit oplog options.
 
  
 
-# Notes
+## Notes
 
 1 Ensure MongoDB user has read/write access to the databases being dumped/restored.
 2 When using --restore, the script adds --drop so existing data will be replaced.
@@ -207,7 +207,7 @@ The oplog ensures cluster-wide consistency across all databases and collections.
 
 -----------------------------------------
 
-# Automation Testing
+## Automation Testing
 
 This project includes `test_automation.py` to verify dump & restore workflows.
 
