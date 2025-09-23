@@ -21,39 +21,37 @@ project/
 ```
 -------------------------------
 
-# Features
 
-Config-driven: Connection details and backup paths stored in config.cfg.
+---
 
-Flexible scope:
+## Features
 
-Dump/restore all databases (--all)
-Dump/restore specific databases (--db dbname)
-Dump/restore specific collections (--db dbname:coll1,coll2)
+- **Config-driven**: Connection details and backup paths stored in `config.cfg`.  
+- **Flexible scope**:
+  - Dump/restore all databases (`--all`)
+  - Dump/restore specific databases (`--db dbname`)
+  - Dump/restore specific collections (`--db dbname:coll1,coll2`)
+- **Oplog support (replica sets only)**:
+  - `--oplog` → Include oplog during dump (requires `--all`)
+  - `--oplogReplay` → Replay oplog during restore (requires `--all`)
+- **Safe restore**: Uses `--drop` to replace existing data.  
+- **Verbose**: Prints the exact `mongodump` / `mongorestore` commands being executed.  
 
-Oplog support (replica sets only):
+---
 
---oplog → Include oplog during dump (requires --all)
---oplogReplay → Replay oplog during restore (requires --all)
+## Requirements
 
-Safe restore: Uses --drop to replace existing data.
+- Python 3.x  
+- [`pymongo`](https://pypi.org/project/pymongo/) → `pip install pymongo`  
+- MongoDB Database Tools (mongodump, mongorestore) installed and available in PATH  
 
-Verbose: Prints the exact mongodump / mongorestore commands being executed.
---------------------------
-# Requirements
+---
 
-Python 3.x
+## Configuration (`config.cfg`)
 
-pymongo (pip install pymongo)
+Create a `.cfg` file with the following structure:
 
-MongoDB Database Tools (mongodump, mongorestore) installed and available in PATH
-
-----------------------------
-
-# Configuration (config.cfg)
-
-Create a .cfg file with the following structure:
-
+```ini
 [database]
 host = localhost
 port = 27017
@@ -64,6 +62,7 @@ auth_db = admin
 [backup]
 dump_path = /path/to/backup/folder
 restore_path = /path/to/backup/folder
+
 
 - auth_db defaults to admin if not provided.
 - dump_path is where dumps will be stored.
@@ -80,18 +79,21 @@ Make sure MongoDB is running and accessible with the credentials in your config 
 
 Run the script:
 
-Standalone:
+# Standalone
 python populateMultipleDbsStandalone.py
 
-Replica Set:
+# Replica Set
 python populateMultipleDbsReplicaSet.py
+
 
 The script will create 3 test databases with collections and sample documents:
 
-Database	Collections
-testdb1	    users, orders, products
-testdb2	    employees, departments, salaries, projects
-testdb3	    students, courses, enrollments
+| Database | Collections                                |
+| -------- | ------------------------------------------ |
+| testdb1  | users, orders, products                    |
+| testdb2  | employees, departments, salaries, projects |
+| testdb3  | students, courses, enrollments             |
+
 ----------------------------
 
 # Usage
@@ -175,17 +177,10 @@ config.cfg : Path to the configuration file.
 --oplog and --oplogReplay are only valid for replica sets, and only when dumping/restoring all databases (--all).
 For single DBs or collections in replica sets, omit oplog options.
 
- Standalone (dump_restore_standalone.py)                                        Replica Set (dump_restore_replicaset.py)
- -----------------------------------------                                      -----------------------------------------
-
- **Dump all databases**           
-
-python dump_restore_standalone.py config.cfg --dump --all                       python dump_restore_replicaset.py config.cfg --dump --all [--oplog]
-
- 
- **Restore all databases**        
-
-python dump_restore_standalone.py config.cfg --restore --all                  python dump_restore_replicaset.py config.cfg --restore --all [--oplogReplay]
+ | Operation       | Standalone Example                                             | Replica Set Example                                                            |
+| --------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Dump all**    | `python dump_restore_standalone.py config.cfg --dump --all`    | `python dump_restore_replicaset.py config.cfg --dump --all [--oplog]`          |
+| **Restore all** | `python dump_restore_standalone.py config.cfg --restore --all` | `python dump_restore_replicaset.py config.cfg --restore --all [--oplogReplay]` |
 
  
 
@@ -198,11 +193,12 @@ python dump_restore_standalone.py config.cfg --restore --all                  py
 5 Always verify dump_path and restore_path in config.cfg before running.
 6 The --oplog option is only supported for full cluster dumps (--all).It is not supported for single databases or single collections.
 
-Dump target	--oplog allowed?
-
-All databases (--all)	                       Yes
-Single database (--db testdb2)	               No
-Single collection (--db testdb2:employees)	   No 
+| Dump Target             | Oplog Allowed? |
+| ----------------------- | -------------- |
+| All databases (`--all`) |   Yes          |
+| Single database         |   No           |
+| Single collection       |   No           |
+ 
 
 Why?
 The oplog ensures cluster-wide consistency across all databases and collections. MongoDB does not allow using it for partial dumps.
