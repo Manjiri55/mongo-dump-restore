@@ -80,10 +80,10 @@ Make sure MongoDB is running and accessible with the credentials in your config 
 
 Run the script:
 
-# Standalone
+-> Standalone
 python populateMultipleDbsStandalone.py
 
-# Replica Set
+-> Replica Set
 python populateMultipleDbsReplicaSet.py
 
 
