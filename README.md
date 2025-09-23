@@ -5,7 +5,7 @@ This project provides Python scripts to backup (dump) and restore MongoDB databa
 It supports both standalone MongoDB instances and replica sets (with optional oplog support for consistent cluster-wide backups).
 
 # Project Structure
-
+'''
 project/
 ├── dump_restore_standalone.py # Dump/restore script for standalone MongoDb instance
 ├── dump_restore_replicaset.py # Dump/restore script for MongoDB is running as a replica set (with oplog support)
@@ -14,7 +14,7 @@ project/
 ├── config.cfg # Configuration file (DB connection settings)
 ├── README.md # Project documentation
 └── test_automation.py (This script tests the main dump_restore.py + populateMultipleDbs.py flow)
-
+'''
 -------------------------------
 
 # Features
