@@ -80,11 +80,14 @@ Make sure MongoDB is running and accessible with the credentials in your config 
 
 Run the script:
 
--> Standalone
+-> Standalone:
+```
 python populateMultipleDbsStandalone.py
-
--> Replica Set
+```
+-> Replica Set:
+```
 python populateMultipleDbsReplicaSet.py
+```
 
 
 The script will create 3 test databases with collections and sample documents:
@@ -212,12 +215,18 @@ The oplog ensures cluster-wide consistency across all databases and collections.
 This project includes `test_automation.py` to verify dump & restore workflows.
 
 Run all tests
+```
 python test_automation.py
+```
 
 Run only full dump & restore test
+```
 python test_automation.py --test full
+```
 
 Run only partial dump & restore test
+```
 python test_automation.py --test partial
+```
 
 -------------------------------------------
