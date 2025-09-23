@@ -198,7 +198,7 @@ Dump target	--oplog allowed?
 
 All databases (--all)	                       Yes
 Single database (--db testdb2)	               No
-Single collection (--db testdb2:employees)	   No
+Single collection (--db testdb2:employees)	   No 
 
 Why?
 The oplog ensures cluster-wide consistency across all databases and collections. MongoDB does not allow using it for partial dumps.
