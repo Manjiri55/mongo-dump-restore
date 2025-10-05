@@ -159,31 +159,39 @@ def restore_missing(db_host, db_port, db_user, db_pass, auth_db, db_collections,
 
 
 def main():
-    parser = argparse.ArgumentParser(description="MongoDB dump/restore script with .cfg config")
+    parser = argparse.ArgumentParser(description="MongoDB dump/restore script with .cfg config and CLI overrides")
     parser.add_argument("config", help="Path to .cfg file")
     parser.add_argument("--dump", action="store_true", help="Run mongodump")
     parser.add_argument("--restore", action="store_true", help="Run mongorestore")
     parser.add_argument("--restoreMissing", action="store_true", help="Restore only missing documents")
-    parser.add_argument("--latest", action="store_true", help="Use the latest dump directory for restore operations")
+    parser.add_argument("--latest", action="store_true", help="Use latest dump directory for restore operations")
     parser.add_argument("--all", action="store_true", help="Include all databases")
-    parser.add_argument("--db", action="append",
-                        help="Specify database(s). Optionally include collections with a colon.\n"
-                             "Examples:\n  --db testdb1\n  --db testdb2:users,orders")
+    parser.add_argument("--db", action="append", help="Specify database(s) (e.g. testdb1 or testdb2:users,orders)")
+    # CLI overrides for config
+    parser.add_argument("--host")
+    parser.add_argument("--port")
+    parser.add_argument("--username")
+    parser.add_argument("--password")
+    parser.add_argument("--authdb")
+    parser.add_argument("--dumpPath")
+    parser.add_argument("--restorePath")
+
     args = parser.parse_args()
 
+    # Load config
     config = configparser.ConfigParser()
     config.read(args.config)
 
-    db_host = config["database"]["host"]
-    db_port = config["database"]["port"]
-    db_user = config["database"]["username"]
-    db_pass = config["database"]["password"]
-    auth_db = config["database"].get("auth_db", "admin")
+    # Merge config + CLI overrides
+    db_host = args.host or config["database"]["host"]
+    db_port = args.port or config["database"]["port"]
+    db_user = args.username or config["database"]["username"]
+    db_pass = args.password or config["database"]["password"]
+    auth_db = args.authdb or config["database"].get("auth_db", "admin")
+    base_dump_path = args.dumpPath or config["backup"]["dump_path"]
+    restore_path = args.restorePath or config["backup"]["restore_path"]
 
-    base_dump_path = config["backup"]["dump_path"]
-    restore_path = config["backup"]["restore_path"]
-
-    # Create timestamped dump subdirectory for dumps
+    # Timestamped dump subdirectory
     if args.dump:
         timestamp = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         dump_path = os.path.join(base_dump_path.rstrip("/"), f"dump_{timestamp}")
@@ -192,12 +200,11 @@ def main():
     else:
         dump_path = base_dump_path
 
-    # Auto-select latest dump for restore if requested
+    # Latest restore directory
     if args.latest:
         restore_path = get_latest_subdir(base_dump_path)
         print(f"Using latest dump directory for restore: {restore_path}")
     else:
-        # Validate restore_path to avoid multi-restore from all subdirectories
         if (args.restore or args.restoreMissing) and os.path.isdir(restore_path):
             validate_restore_path(restore_path)
 
@@ -209,7 +216,7 @@ def main():
     else:
         db_collections = {}
 
-    # Run operations
+    # Actions
     if args.dump:
         print("Running mongodump...")
         dump_cmds = build_dump_cmds(db_host, db_port, db_user, db_pass, auth_db, db_collections, dump_path)
