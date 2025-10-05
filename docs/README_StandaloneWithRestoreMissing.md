@@ -22,6 +22,8 @@ This Python utility provides flexible backup (dump) and restore operations for M
 project/
 ├── dumpRestoreStandaloneWithRestoreMissingDocs.py # Main script
 ├── config.cfg # Configuration file
+├── docs/
+│   └── README_StandaloneWithRestoreMissing.md 
 └── README.md # This file
 
 ```
