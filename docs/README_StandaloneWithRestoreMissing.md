@@ -16,6 +16,7 @@ This Python utility provides flexible backup (dump) and restore operations for M
 
 ---
 
+```
 ## Project Structure
 
 project/
@@ -23,6 +24,7 @@ project/
 ├── config.cfg # Configuration file
 └── README.md # This file
 
+```
 
 ---
 
@@ -42,7 +44,9 @@ auth_db = admin
 dump_path = /home/manjiri/dump
 restore_path = /home/manjiri/dump
 
-Notes:
+```
+
+## Notes:
 
 dump_path: Base directory for all new timestamped dumps
 
@@ -54,9 +58,11 @@ If multiple dumps exist and --latest is not provided, a warning prevents restori
 
 Command-Line Overview
 
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg [options]
+```
 
-General Options
+## General Options
 
 | Flag               | Description                                                      |
 | ------------------ | ---------------------------------------------------------------- |
@@ -83,35 +89,40 @@ All parameters in config.cfg can be overridden from the command line:
 | `--restorePath` | `[backup] restore_path` | `--restorePath /data/dumps/dump_2025_10_04_09_15_32` |
 
 
-Usage Examples
+## Usage Examples
 
 1. Full dump of all databases
-
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --dump --all
-
+```
 Creates /home/manjiri/dump/dump_YYYY_MM_DD_HH_MM_SS/
 
 2. Dump a specific database
-
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --dump --db testdb1
+```
 
 3. Dump selected collections
-
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --dump --db testdb1:users,orders
+```
 
 4. Restore from the latest dump
-
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restore --latest
+```
 
 5. Restore only one collection
-
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restore --latest --db testdb1:orders
+```
 
 6. Restore only missing documents
 
 Restore accidentally deleted documents without overwriting new ones:
-
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restoreMissing --latest --db testdb1:orders
+```
 
 7. Restore from a specific dump
 
@@ -119,23 +130,21 @@ Edit your config file:
 
 restore_path = /home/manjiri/dump/dump_2025_10_01_07_30_00
 
-
 Then run:
 
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restore --db testdb1:orders
-
+```
 8. Validation safeguard
 
 If you set:
 
 restore_path = /home/manjiri/dump
 
-
 and run without --latest:
-
+```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restore --db testdb1:orders
-
-
+```
 you’ll get:
 
 The restore path '/home/manjiri/dump' contains multiple dump directories:
@@ -164,7 +173,7 @@ rm -rf /home/manjiri/dump/dump_2025_09_28_*
 
 
 
-Common Test Commands
+## Common Test Commands
 
 | Purpose                       | Command                                         |
 | ----------------------------- | ----------------------------------------------- |
@@ -177,22 +186,22 @@ Common Test Commands
 | RestoreMissing one collection | `--restoreMissing --latest --db testdb1:orders` |
 
 
-Requirements
+## Requirements
 
 Python 3.7+
 
-MongoDB tools installed (mongodump, mongorestore, bsondump)
+## MongoDB tools installed (mongodump, mongorestore, bsondump)
 
 mongodump --version
 mongorestore --version
 bsondump --version
 
 
-Python dependencies:
+## Python dependencies:
 
 pip install pymongo
 
-Example Workflow
+## Example Workflow
 
 Populate sample data
 
@@ -205,7 +214,7 @@ Run --restoreMissing --latest to restore deleted ones
 Repeat weekly — timestamped folders prevent overwrites
 
 
-Error Handling
+## Error Handling
 
 | Scenario                                               | Behavior                                                  |
 | ------------------------------------------------------ | --------------------------------------------------------- |
