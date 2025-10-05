@@ -17,11 +17,16 @@ This Python utility provides flexible backup (dump) and restore operations for M
 
 ```
 project/
+
 ├── dump_restore_standalone.py # Dump/restore script for standalone MongoDb instance
 ├── dump_restore_replicaset.py # Dump/restore script for MongoDB is running as a replica set (with oplog support)
+├── dumpRestoreStandaloneWithRestoreMissingDocs.py
 ├── populateMultipleDbsStandalone.py # Script to populate test data for dump_restore_standalone.py
 ├── populateMultipleDbsReplicaSet.py # Script to populate test data for dump_restore_replicaset.py
 ├── config.cfg # Configuration file (DB connection settings)
+├── docs/
+│   ├── README_StandaloneReplicaSet.md       
+│   └── README_StandaloneWithRestoreMissing.md 
 ├── README.md # Project documentation
 └── test_automation.py (This script tests the main dump_restore.py + populateMultipleDbs.py flow)
 ```
