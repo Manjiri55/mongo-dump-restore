@@ -127,8 +127,9 @@ python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restoreMissin
 
 Edit your config file:
 
+```
 restore_path = /home/manjiri/dump/dump_2025_10_01_07_30_00
-
+```
 Then run:
 
 ```
