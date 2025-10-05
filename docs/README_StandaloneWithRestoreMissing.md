@@ -138,18 +138,20 @@ python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restore --db 
 
 If you set:
 
+```
 restore_path = /home/manjiri/dump
+```
 
 and run without --latest:
 ```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg --restore --db testdb1:orders
 ```
 you’ll get:
-
+```
 The restore path '/home/manjiri/dump' contains multiple dump directories:
    dump_2025_10_04_09_15_32, dump_2025_09_28_08_00_00
 Please specify a specific dump subfolder or use --latest.
-
+```
 ## Timestamped Dump Folders
 
 Each dump automatically creates a folder:
