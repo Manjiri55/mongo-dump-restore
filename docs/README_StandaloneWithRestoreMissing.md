@@ -16,9 +16,9 @@ This Python utility provides flexible backup (dump) and restore operations for M
 
 ---
 
-```
-## Project Structure
 
+## Project Structure
+```
 project/
 ├── dumpRestoreStandaloneWithRestoreMissingDocs.py # Main script
 ├── config.cfg # Configuration file
@@ -56,7 +56,7 @@ Use --latest to automatically select the most recent dump
 
 If multiple dumps exist and --latest is not provided, a warning prevents restoring from all
 
-Command-Line Overview
+## Command-Line Overview
 
 ```
 python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg [options]
@@ -74,8 +74,7 @@ python dumpRestoreStandaloneWithRestoreMissingDocs.py config.cfg [options]
 | `--db`             | Specify databases/collections (e.g. `--db testdb1:users,orders`) |
 
 
-Database Connection & Path Overrides
-
+## Database Connection & Path Overrides
 All parameters in config.cfg can be overridden from the command line:
 
 | CLI Flag        | Overrides Config Key    | Example                                              |
@@ -151,27 +150,27 @@ The restore path '/home/manjiri/dump' contains multiple dump directories:
    dump_2025_10_04_09_15_32, dump_2025_09_28_08_00_00
 Please specify a specific dump subfolder or use --latest.
 
-Timestamped Dump Folders
+## Timestamped Dump Folders
 
 Each dump automatically creates a folder:
-
+```
 dump_YYYY_MM_DD_HH_MM_SS
-
+```
 
 Example:
 
+```
 /home/manjiri/dump/dump_2025_10_04_09_15_32/testdb1/orders.bson
-
-
+```
 This prevents overwriting previous backups and simplifies version tracking.
 
-Cleanup (optional)
+## Cleanup (optional)
 
 You can safely delete old backups:
 
+```
 rm -rf /home/manjiri/dump/dump_2025_09_28_*
-
-
+```
 
 ## Common Test Commands
 
@@ -191,27 +190,27 @@ rm -rf /home/manjiri/dump/dump_2025_09_28_*
 Python 3.7+
 
 ## MongoDB tools installed (mongodump, mongorestore, bsondump)
-
+```
 mongodump --version
 mongorestore --version
 bsondump --version
-
+```
 
 ## Python dependencies:
-
+```
 pip install pymongo
-
+```
 ## Example Workflow
 
-Populate sample data
+1. Populate sample data
 
-Run --dump --all to create backup
+2. Run --dump --all to create backup
 
-Accidentally delete some records
+3. Accidentally delete some records
 
-Run --restoreMissing --latest to restore deleted ones
+4. Run --restoreMissing --latest to restore deleted ones
 
-Repeat weekly — timestamped folders prevent overwrites
+5. Repeat weekly — timestamped folders prevent overwrites
 
 
 ## Error Handling
