@@ -1,21 +1,11 @@
 # MongoDB Dump & Restore Utility
+
 **Script:** `dumpRestoreStandaloneWithRestoreMissingDocs.py`
 
 This Python utility provides flexible backup (dump) and restore operations for MongoDB databases — with advanced features like timestamped dumps, granular collection selection, and document-level restore (`restoreMissing`).
+This is an improved version of the first version (dump_restore_standalone.py)
 
 ---
-
-## Features
-
-- Dump entire MongoDB instance or selected DBs/collections  
-- Restore entire DBs, specific collections, or only missing documents  
-- Automatically creates timestamped backup directories  
-- Prevents accidental multi-restore from parent directory  
-- Supports config + CLI overrides for all parameters  
-- Seamless integration with MongoDB command-line tools  
-
----
-
 
 ## Project Structure
 ```
@@ -27,6 +17,63 @@ project/
 └── README.md # This file
 
 ```
+---
+
+## Features
+
+- Dump entire MongoDB instance or selected DBs/collections  
+- Restore entire DBs, specific collections, or only missing documents  
+- Automatically creates timestamped backup directories  
+- Prevents accidental multi-restore from parent directory  
+- Supports config + CLI overrides for all parameters  
+- Seamless integration with MongoDB command-line tools
+
+## Enhancements and improvements to the first version (dump_restore_standalone.py)
+
+1. Configuration (via .cfg file or CLI):
+
+The script allows you to specify various MongoDB connection details like the database host, port, username, password, and authentication database either from a configuration file (.cfg) or via command-line arguments.
+This makes it flexible and customizable to run on different environments with different connection parameters.
+
+2. Restore Missing Documents (--restoreMissing):
+
+This functionality is useful when you only want to restore missing documents (i.e., documents that don’t exist in the target MongoDB collections).
+The script performs the following steps:
+Walks through the BSON backup files and converts them into JSON format using bsondump.
+Checks the existing documents in the target MongoDB collection.
+Inserts only the missing documents (those not already present in the collection).
+This ensures that existing data isn’t overwritten, and only new documents are restored.
+
+3. Additional Features:
+
+Timestamped Dump Folders: When dumping data, it creates a subfolder named dump_YYYY_MM_DD_HH_MM_SS (based on the current timestamp) to store the dump files, which helps with organizing and differentiating backups.
+Handling Multiple Databases and Collections: You can specify multiple databases and collections either in the configuration file or through CLI arguments. For example, you can back up testdb1:orders,users while excluding others.
+Error Handling: The script performs validation checks, such as ensuring there are no conflicting dump directories during restore and verifying that the correct paths are provided.
+
+4. Command-Line Arguments:
+
+--dump: Run a backup of specified database(s)/collection(s).
+--restore: Restore a backup to the MongoDB instance.
+--restoreMissing: Only restore missing documents from a previous backup, preventing overwriting of existing data.
+--latest: Use the most recently modified dump directory for restore operations.
+--db: Specify which databases or collections to include/exclude in the dump or restore operation.
+--all: Include all databases for the dump or restore operations.
+
+5. Dump Operation (--dump):
+
+When the --dump flag is provided, the script runs mongodump to back up the database(s) or collection(s) to a specified directory (with a timestamped subfolder).
+You can select which collections to back up by specifying them with the --db argument.
+If no specific collections are given, the entire database will be dumped.
+The backup command is generated dynamically and includes:
+Host, port, username, password, authentication database, and collections (if specified).
+The backup is stored in a subdirectory with a timestamp to organize dumps.
+
+6. Restore Operation (--restore):
+
+When the --restore flag is used, it triggers the mongorestore operation, which restores a MongoDB backup from a specified directory.
+The script ensures that the restore operation only applies to the desired databases and collections, based on the specified arguments.
+It has an option to use the latest dump if the --latest flag is passed, in which case it automatically selects the most recently modified dump directory.
+
 
 ---
 
