@@ -8,17 +8,20 @@ This project provides Python scripts to backup (dump) and restore MongoDB databa
 It supports both **standalone MongoDB instances** and **replica sets** (with optional oplog support for consistent cluster-wide backups).
 
 More details about this script are provided in the document at the path below:
+```
 ├── docs/
-│   ├── README_StandaloneReplicaSet.md   
+│   ├── README_StandaloneReplicaSet.md
+```
 
 2. Script: dumpRestoreStandaloneWithRestoreMissingDocs.py
 
 This Python utility provides flexible backup (dump) and restore operations for MongoDB databases — with advanced features like timestamped dumps, granular collection selection, and document-level restore (restoreMissing).
 
 More details about this script are provided in the document at the path below:
+```
 ├── docs/ 
 │   └── README_StandaloneWithRestoreMissing.md 
-
+```
 ---
 
 ## Project Structure
